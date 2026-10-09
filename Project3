@@ -1,0 +1,41 @@
+import os
+
+from Pet import Pet
+
+# Create a list to store all Pet objects read from the file.
+pets = []
+
+# Build the file path so the program can find petdata.txt.
+data_file = os.path.join(os.path.dirname(__file__), "petdata.txt")
+
+# Read each line from the pet data file and create a Pet object for each one.
+with open(data_file, "r") as file:
+    for line in file:
+        data = line.strip().split()
+
+        # Skip incomplete lines if any are present.
+        if len(data) < 4:
+            continue
+
+        name = data[0]
+        species = data[1]
+        family_type = data[2]
+        owner = data[3]
+
+        pet = Pet(name, species, family_type, owner)
+        pets.append(pet)
+
+# Display all pets in the list.
+for pet in pets:
+    print(pet)
+    print()
+
+# Print the owners of pets that are snakes.
+print("Snake Pet Owners")
+print("----------------")
+
+for pet in pets:
+    if pet.get_Family_Type().lower() == "snake":
+        print("Owner:", pet.get_Owner())
+        print("Pet:", pet.get_Name())
+        print()
